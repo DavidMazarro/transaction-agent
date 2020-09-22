@@ -39,13 +39,14 @@ mix phx.server
 
 ## Requesting the API
 
-You can get all of the existing customers, banks, accounts or transfers by sending a GET request to `/api/customers`, `/api/banks/`, `/api/accounts/` or `/api/transfers` respectively. Furthermore, instead of asking for every entry, you can get the contents of a specific entry by providing appending the ID to the URL (i.e. a GET request to `/api/accounts/3` will return the information of the account with associated ID of 3).
+You can get all of the existing customers, banks, accounts or transfers by sending a GET request to `/api/customers`, `/api/banks/`, `/api/accounts/` or `/api/transfers` respectively. Furthermore, instead of asking for every entry, you can get the contents of a specific entry by providing appending the ID to the URL (e.g. a GET request to `/api/accounts/3` will return the information of the account with associated ID of 3).
 
 You can add new customers, banks, accounts and transfers to the database by sending a POST request to `/api/customers`, `/api/banks/`, `/api/accounts/` or `/api/transfers` (same as before) with the body filled in with a JSON with the necessary fields, mirroring the ones in the [Examples](https://github.com/DavidMazarro/transaction-agent#examples) section.
 
 When a new transfer is added to the database, the balances are updated according to the amount that was transferred.
 
 ### Examples 
+__Important:__ all money quantities handled by the software are represented as integers. The last two digits of the quantity would be the decimal part (e.g. for euros, 585 would be 5.85€).
 #### customers
 ```JSON
 {
@@ -76,3 +77,12 @@ When a new transfer is added to the database, the balances are updated according
     "origin_account_id": 1,
 }
 ```
+
+## Room for improvement
+
+The next steps for improving the software would be:
+- **Encrypting** the information within the entries and replacing the incremental IDs for each entry with **randomized** ones for improved security
+- Adding proper **test suites** (unit tests or property-based tests), since so far the API has been tested manually
+- Taking into account regulations and laws regarding software for handling transactions and make this software compliant with those
+
+_Note:_ The current implementation assumes that transfer are instantaneous. Were that not the case, another timestamp besides the one for entry insertions to the transfers table would be needed that showed exactly when said transfer was completed. The balance of the destination account shouldn't be updated until the transfer has been completed, and that should be reflected in the code used to handle the updating of the accounts' balances.
