@@ -83,6 +83,6 @@ __Important:__ all money quantities handled by the software are represented as i
 The next steps for improving the software would be:
 - **Encrypting** the information within the entries and replacing the incremental IDs for each entry with **randomized** ones for improved security
 - Adding proper **test suites** (unit tests or property-based tests), since so far the API has been tested manually
-- Taking into account regulations and laws regarding software for handling transactions and make this software compliant with those
+- Taking into account **regulations and laws** regarding software for handling transactions and make this software **compliant** with those
 
 _Note:_ The current implementation assumes that transfer are instantaneous. Were that not the case, another timestamp besides the one for entry insertions to the transfers table would be needed that showed exactly when said transfer was completed. The balance of the destination account shouldn't be updated until the transfer has been completed, and that should be reflected in the code used to handle the updating of the accounts' balances.
